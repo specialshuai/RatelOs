@@ -24,3 +24,37 @@ all: $(S_OBJECTS) $(C_OBJECTS) link update_image
 # The automatic variable `$<' is just the first prerequisite
 # The automatic variable `$^' is all prerequisite
 # The automatic variable `$@' is the target file
+
+# .c.o means %.o:%.c   all .o depend on all .c 
+.c.o:
+	@echo 编译c代码文件 $< ...
+	$(CC) $(C_FLAGS) $< -o $@
+
+.s.o:
+	@echo 编译汇编文件 $< ...
+	$(ASM) $(ASM_FLAGS) $<
+	
+link:
+	@echo 链接内核文件...	
+	$(LD) $(LD_FLAGS) $(C_OBJECTS) $(S_OBJECTS) -o RatelOs
+	
+.PHONY:clean
+clean:
+	$(RM) $(C_OBJECTS) $(S_OBJECTS) RatelOs
+	
+.PHONY:update_image
+update_image:
+	sudo mount floppy.img /mnt/kernel
+	sudo cp RatelOs /mnt/kernel/
+	sleep 1
+	sudo umount /mnt/kernel
+	
+.PHONY:qemu
+qemu:
+	qemu -fda floppy.img -boot a
+	
+.PHONY:debug
+debug: 
+	qemu -S -s -fda floppy.img -boot a &
+	sleep(1)
+	cgdb -x scripts/gdbinit
