@@ -1,0 +1,15 @@
+pringk实现（printk("%%%%..",,,...)、printk(char * str,...)）：
+1.目标：构造最终打印的字符串
+2.难点：如何在没有形参名字的情况下找到每一个参数
+3.解决方法：C语言可变长字符串、函数调用栈
+
+// va_list __builtin_va_start __builtin_va_arg是GCC内置的变量及函数
+
+// #define va_list			char *
+
+// #define va_start(p, first)		(p = (va_list)&first + sizeof(first))
+
+// #define va_arg(p, next)		(*(next*)((p += sizeof(next) - sizeof(next)))
+
+// #define va_end(p)			(p = (va_list)NULL)
+这几个宏作用是根据第一个参数的地址和类型，通过逐步计算出以后每一个参数的起始地址的方法取出每一个参数。函数参数在栈里面是连续存储的（从右到左依次push进栈，call func, 调用完sub改变栈的地址寄存器）

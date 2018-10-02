@@ -1,0 +1,7 @@
+grub下：grub.conf、memu.lst、stage1、stage2文件
+	grub.conf vs memu.lst：grub.conf是menu.lst的软连接 menu.lst配置了title、内核可执行文件名称及位置、以及root位置
+	stage1、stage2：grub的可执行文件，从stage1跑到stage2,stage2负责根据配置文件信息读取内核到指定位置并跳转执行
+	
+grub支持从很多常见的文件系统中读取和载入内核（支持FAT12格式、支持elf可执行文件），拷贝编译好的内核进去，并用qemu运行。
+
+必须构造满足grub的mutiboot标准的头部的内核 才能被grep识别
