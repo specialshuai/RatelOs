@@ -36,16 +36,16 @@ all: $(S_OBJECTS) $(C_OBJECTS) link update_image
 	
 link:
 	@echo 链接内核文件...	
-	$(LD) $(LD_FLAGS) $(C_OBJECTS) $(S_OBJECTS) -o RatelOs
+	$(LD) $(LD_FLAGS) $(S_OBJECTS) $(C_OBJECTS) -o RatelOs
 	
 .PHONY:clean
 clean:
-	$(RM) $(C_OBJECTS) $(S_OBJECTS) RatelOs
+	$(RM) $(S_OBJECTS) $(C_OBJECTS) RatelOs
 	
 .PHONY:update_image
 update_image:
 	sudo mount floppy.img /mnt/kernel
-	sudo cp RatelOs /mnt/kernel/
+	sudo cp RatelOs /mnt/kernel/RatelOs
 	sleep 1
 	sudo umount /mnt/kernel
 	
@@ -56,5 +56,5 @@ qemu:
 .PHONY:debug
 debug: 
 	qemu -S -s -fda floppy.img -boot a &
-	sleep(1)
+	sleep 1
 	cgdb -x scripts/gdbinit

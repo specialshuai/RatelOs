@@ -11,7 +11,7 @@
 #ifndef INCLUDE_STRING_H_
 #define INCLUDE_STRING_H_
 
-#include "type.h"
+#include "types.h"
 
 static inline void memcpy(uint8_t *dest, const uint8_t *src, uint32_t len)
 {
