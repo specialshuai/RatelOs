@@ -1,0 +1,37 @@
+1.8个32位的通用寄存器
+
+EAX  一般用作累加器
+EBX  一般用作基址寄存器（Base）
+ECX  一般用来计数（Count）
+EDX  一般用来存放数据（Data）
+ESP  一般用作堆栈指针（Stack Pointer）
+EBP  一般用作基址指针（Base Pointer）
+ESI   一般用作源变址（Source Index）
+EDI   一般用作目标变址（Destinatin Index）
+
+2.6个16位的段寄存器
+
+CS  代码段寄存器
+DS  数据段寄存器
+SS  堆栈段寄存器
+ES、FS及GS  附加数据段寄存器
+
+3.4个32位的控制寄存器
+
+CR0中包含了6个预定义标志，0位是保护允许位PE(Protedted Enable)，用于启动保护模式，如果PE位置1，则保护模式启动，如果PE=0，则在实模式下运行。1位是监控协处理位MP(Moniter coprocessor)，它与第3位一起决定：当TS=1时操作码WAIT是否产生一个“协处理器不能使用”的出错信号。第3位是任务转换位(Task Switch)，当一个任务转换完成之后，自动将它置1。随着TS=1，就不能使用协处理器。CR0的第2位是模拟协处理器位 EM (Emulate coprocessor)，如果EM=1，则不能使用协处理器，如果EM=0，则允许使用协处理器。第4位是微处理器的扩展类型位ET(Processor Extension Type)，其内保存着处理器扩展类型的信息，如果ET=0，则标识系统使用的是287协处理器，如果 ET=1，则表示系统使用的是387浮点协处理器。CR0的第31位是分页允许位(Paging Enable)，它表示芯片上的分页部件是否允许工作。
+
+CR1是未定义的控制寄存器，供将来的处理器使用。
+
+CR2是页故障线性地址寄存器，保存最后一次出现页故障的全32位线性地址。
+
+CR3是页目录基址寄存器，保存页目录表的物理地址，页目录表总是放在以4K字节为单位的存储器边界上，因此，它的地址的低12位总为0，不起作用，即使写上内容，也不会被理会。
+
+4.4个系统地址寄存器
+
+全局描述符表寄存器GDTR（Global Descriptor Table Register ），是48位寄存器，用来保存全局描述符表（GDT）的32位基地址和16为GDT的界限。
+
+中断描述符表寄存器IDTR（Interrupt Descriptor Table Register），是48位寄存器，用来保存中断描述符表（IDT）的32位基地址和16为IDT的界限。
+
+局部描述符表寄存器LDTR（Global Descriptor Table Register ），是16位寄存器，保存局部描述符表LDT段的选择符。
+
+任务状态寄存器TR（Task State Register）是16位寄存器，用于保存任务状态段TSS段的16位选择符。
