@@ -51,7 +51,4 @@ void console_write_hex(uint32_t n, real_color_t back, real_color_t fore);
 void console_write_dec(uint32_t n, real_color_t back, real_color_t fore);
 
 
-
-
-
 #endif  //INCLUDE_CONSOLE_H_
